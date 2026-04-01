@@ -1,0 +1,21 @@
+{
+  "models": {
+    "linear_regression": {
+      "file": "aqi_linear_regression_model.joblib",
+      "type": "LinearRegression",
+      "r2_score": 0.5641981871772995
+    },
+    "random_forest": {
+      "file": "aqi_random_forest_model.joblib",
+      "type": "RandomForestRegressor",
+      "r2_score": 0.44006428259178854
+    }
+  },
+  "features": [
+    "lag1",
+    "lag2",
+    "lag3"
+  ],
+  "training_size": 1236,
+  "test_size": 309
+}
