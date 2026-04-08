@@ -1,21 +1,59 @@
 {
-  "models": {
-    "linear_regression": {
-      "file": "aqi_linear_regression_model.joblib",
-      "type": "LinearRegression",
-      "r2_score": 0.5641981871772995
+  "champion_model": {
+    "file": "aqi_champion_model.joblib",
+    "type": "VotingRegressor",
+    "components": {
+      "random_forest": {
+        "weight": 0.25,
+        "n_estimators": 150,
+        "max_depth": 12
+      },
+      "gradient_boosting": {
+        "weight": 0.3,
+        "n_estimators": 150,
+        "max_depth": 6,
+        "learning_rate": 0.05
+      },
+      "xgboost": {
+        "weight": 0.3,
+        "n_estimators": 150,
+        "max_depth": 4,
+        "learning_rate": 0.05
+      },
+      "linear_regression": {
+        "weight": 0.15
+      }
     },
-    "random_forest": {
-      "file": "aqi_random_forest_model.joblib",
-      "type": "RandomForestRegressor",
-      "r2_score": 0.44006428259178854
-    }
+    "metrics": {
+      "r2_score": 0.5373404660632543,
+      "rmse": 18.357202798757484,
+      "mae": 12.898626771776527
+    },
+    "weight_rationale": "Weights are manually chosen from notebook experimentation, not optimized by a search. XGBoost, Gradient Boosting, and Random Forest receive the largest weights because they can model non-linear AQI patterns, while Linear Regression keeps a smaller trend-following component. LightGBM is evaluated in the report but not included in the saved ensemble because it performs worse in the current test results. Current report metrics show Linear Regression is still slightly stronger on the 80/20 test split, so these weights should be treated as experimental for academic demonstration."
   },
   "features": [
     "lag1",
     "lag2",
-    "lag3"
+    "lag3",
+    "lag4",
+    "lag5",
+    "lag7",
+    "ma7",
+    "ma14",
+    "ma30",
+    "std7",
+    "std14",
+    "day_of_week",
+    "month",
+    "quarter",
+    "day_of_year",
+    "min7",
+    "max7",
+    "range7",
+    "ema7"
   ],
-  "training_size": 1236,
-  "test_size": 309
+  "feature_version": "19-feature-lag-rolling-calendar-v1",
+  "training_size": 1214,
+  "test_size": 304,
+  "readiness": "academic prototype; not production-ready without external validation and monitoring"
 }
